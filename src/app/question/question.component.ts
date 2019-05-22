@@ -13,7 +13,11 @@ export class QuestionComponent implements OnInit {
   constructor(private questionService: QuestionService) {}
 
   ngOnInit() {
-    this.question = this.questionService.getQuestion();
+    this.questionService
+      .getQuestion()
+      .subscribe(
+        q => (this.question = q),
+        _ => console.log('not available question')
+      );
   }
-
 }
