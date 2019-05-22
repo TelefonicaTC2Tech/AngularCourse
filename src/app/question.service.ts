@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Question } from './question';
 import { of, Observable, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,30 +10,16 @@ import { map, tap } from 'rxjs/operators';
 export class QuestionService {
   questionList$: Observable<Question[]>;
   lastQuestion = -1;
+  serverUrl: string;
 
-  constructor() {}
+  constructor(private http: HttpClient) {
+    this.serverUrl = 'https://opentdb.com/api.php?amount=50&category=11&difficulty=easy';
+  }
 
   initQuestions() {
-    this.questionList$ = of([
-      {
-        category: 'General Knowledge',
-        type: 'multiple',
-        difficulty: 'easy',
-        question:
-          'Which of these colours is NOT featured in the logo for Google?',
-        correct_answer: 'Pink',
-        incorrect_answers: ['Yellow', 'Blue', 'Green']
-      } as Question,
-      {
-        category: 'General Knowledge',
-        type: 'boolean',
-        difficulty: 'easy',
-        question:
-          'In 2010, Twitter and the United States Library of Congress partnered together to archive every tweet by American citizens.',
-        correct_answer: 'True',
-        incorrect_answers: ['False']
-      } as Question
-    ]);
+    this.questionList$ = this.http
+      .get<{result: number; results: Question[]}>(this.serverUrl).pipe(
+      map(res => res.results));
   }
 
   getQuestion(): Observable<Question> {
