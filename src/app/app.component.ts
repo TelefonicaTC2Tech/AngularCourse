@@ -12,8 +12,8 @@ export class AppComponent implements OnInit {
   constructor(private questionService: QuestionService) {}
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    // Add 'implements OnInit' to the class.
     this.questionService.initQuestions();
   }
 }
