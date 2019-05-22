@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Question } from './question';
 import { of, Observable, throwError } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, shareReplay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -19,7 +19,9 @@ export class QuestionService {
   initQuestions() {
     this.questionList$ = this.http
       .get<{result: number; results: Question[]}>(this.serverUrl).pipe(
-      map(res => res.results));
+      map(res => res.results),
+      shareReplay(1)
+      );
   }
 
   getQuestion(): Observable<Question> {
