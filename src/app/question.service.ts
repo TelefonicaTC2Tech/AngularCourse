@@ -4,11 +4,20 @@ import { of, Observable, throwError } from 'rxjs';
 import { map, tap, shareReplay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
+interface QuestionResponse {
+  category: string;
+  type: 'multiple' | 'boolean';
+  difficulty: 'easy' | 'medium' | 'hard';
+  question: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
-  questionList$: Observable<Question[]>;
+  questionList$: Observable<QuestionResponse[]>;
   lastQuestion = -1;
   serverUrl: string;
 
@@ -18,7 +27,7 @@ export class QuestionService {
 
   initQuestions() {
     this.questionList$ = this.http
-      .get<{result: number; results: Question[]}>(this.serverUrl).pipe(
+      .get<{result: number; results: QuestionResponse[]}>(this.serverUrl).pipe(
       map(res => res.results),
       shareReplay(1)
       );
@@ -35,8 +44,13 @@ export class QuestionService {
         questions =>
           (this.lastQuestion = (this.lastQuestion + 1) % questions.length)
       ),
-      map(questions => {
-        return questions[this.lastQuestion];
+      map((questions: QuestionResponse[]) => {
+        const originalQuestion = questions[this.lastQuestion];
+        const answers = [...originalQuestion.incorrect_answers, originalQuestion.correct_answer].sort();
+        const question = {...originalQuestion, answers};
+        delete question.incorrect_answers;
+
+        return question as Question;
       })
     );
   }
