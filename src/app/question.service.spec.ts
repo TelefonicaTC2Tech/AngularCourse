@@ -51,7 +51,7 @@ describe('QuestionService', () => {
     service.getQuestion().subscribe((question: Question) => {
       expect(question).toBeDefined();
       expect(question.question).toBeDefined();
-      expect(question.incorrect_answers).toBeDefined();
+      expect(question.answers).toBeDefined();
       expect(question.correct_answer).toBeDefined();
       done();
     });
@@ -80,7 +80,7 @@ describe('QuestionService', () => {
     // https://rxjs-dev.firebaseapp.com/guide/subscription
     forkJoin([question$, question2$]).subscribe(([q, q2]: Question[]) => {
       expect(q2.question).toBeDefined();
-      expect(q2.incorrect_answers).toBeDefined();
+      expect(q2.answers).toBeDefined();
       expect(q2.correct_answer).toBeDefined();
       expect(q2.question).not.toEqual(q.question);
       done();
