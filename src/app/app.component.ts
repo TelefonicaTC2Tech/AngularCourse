@@ -7,7 +7,7 @@ import { QuestionService } from './question.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'AngularCourse';
+  title = 'Trivial Game';
 
   constructor(private questionService: QuestionService) {}
 
