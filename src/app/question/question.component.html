@@ -1,4 +1,4 @@
-<div class="question">
+<div class="question" *ngIf="question">
   <span class="question-text" [innerHTML]= "question.question"></span>
   <app-question-options [answers]="question.answers"></app-question-options>
 </div>
