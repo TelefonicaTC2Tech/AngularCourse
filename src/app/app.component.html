@@ -1,4 +1,5 @@
 <h1>
   Welcome to {{ title }}!
 </h1>
-<app-question id="question"></app-question>
+<button id="trivial-start" class="bnt-primary" (click)="playing = true" *ngIf="!playing">start</button>
+<app-question *ngIf="playing" id="question" (isCorrect)="computeResult($event)"></app-question>

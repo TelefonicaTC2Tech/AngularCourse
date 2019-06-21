@@ -1,13 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 
 import { QuestionComponent } from './question.component';
 import { QuestionService } from '../question.service';
 import { Question } from '../question';
 import { of } from 'rxjs';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Component, Output, EventEmitter, Input } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;
+  let optionsComponent: QuestionOptionsStubComponent;
   let fixture: ComponentFixture<QuestionComponent>;
   let questionEl: HTMLElement;
 
@@ -22,9 +24,17 @@ describe('QuestionComponent', () => {
   } as Question;
   const questionServiceSpy = jasmine.createSpyObj('QuestionService', ['getQuestion']);
 
+  @Component({selector: 'app-question-options', template: ''})
+  class QuestionOptionsStubComponent {
+    @Input()
+    answers: string [] = [];
+    @Output()
+    selected = new EventEmitter<string>();
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuestionComponent ],
+      declarations: [ QuestionComponent, QuestionOptionsStubComponent ],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [ { provide: QuestionService, useValue: questionServiceSpy }]
     })
@@ -52,4 +62,39 @@ describe('QuestionComponent', () => {
     expect(questionEl.textContent).toBe(expectedQuestion);
     expect(getQuestionSpy.calls.any()).toBe(true, 'getQuestion called');
   });
+
+  it('should register an incorrect answer', () => {
+    const getQuestionSpy = questionServiceSpy.getQuestion.and.returnValue(of(questionMultiple));
+    fixture.detectChanges(); // onInit()
+    optionsComponent = fixture.debugElement.query(By.directive(QuestionOptionsStubComponent)).componentInstance;
+
+
+    component.isCorrect.subscribe(isCorrect => expect(isCorrect).toBe(false));
+    optionsComponent.selected.emit('Yellow');
+    fixture.detectChanges();
+  });
+
+  it('should register a correct answer', () => {
+    const getQuestionSpy = questionServiceSpy.getQuestion.and.returnValue(of(questionMultiple));
+    fixture.detectChanges(); // onInit()
+    optionsComponent = fixture.debugElement.query(By.directive(QuestionOptionsStubComponent)).componentInstance;
+
+    component.isCorrect.subscribe(isCorrect => expect(isCorrect).toBe(true));
+    optionsComponent.selected.emit('Pink');
+    fixture.detectChanges();
+  });
+
+  it('should show the result', fakeAsync(() => {
+    const getQuestionSpy = questionServiceSpy.getQuestion.and.returnValue(of(questionMultiple));
+    fixture.detectChanges(); // onInit()
+    optionsComponent = fixture.debugElement.query(By.directive(QuestionOptionsStubComponent)).componentInstance;
+
+    optionsComponent.selected.emit('Pink');
+    fixture.detectChanges();
+    const msg = fixture.nativeElement.querySelector('#result-msg');
+    expect(component.showResult).toBe(true);
+    expect(msg.textContent).toContain('correct!');
+    tick(1000);
+    expect(component.showResult).toBe(false);
+  }));
 });

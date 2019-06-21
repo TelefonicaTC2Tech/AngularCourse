@@ -1,10 +1,21 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Input, Output, EventEmitter, Component } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
+
+  // mocks
+  @Component({selector: 'app-question', template: ''})
+  class QuestionStubComponent {
+    @Input()
+    question: string [] = [];
+    @Output()
+    isCorrect = new EventEmitter<string>();
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -12,7 +23,8 @@ describe('AppComponent', () => {
         HttpClientTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        QuestionStubComponent
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
@@ -35,5 +47,35 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain('Welcome to Trivial Game!');
+  });
+
+  it('should start the game', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.playing = false;
+    fixture.detectChanges();
+    let questionElement = fixture.debugElement.query(By.directive(QuestionStubComponent));
+    expect(questionElement).toBeNull();
+    const start = fixture.debugElement.query(By.css('#trivial-start')).nativeElement;
+    start.click();
+    fixture.detectChanges();
+    questionElement = fixture.debugElement.query(By.directive(QuestionStubComponent));
+    expect(questionElement).toBeTruthy();
+  });
+
+  it('should register an answer', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.playing = true;
+    fixture.detectChanges();
+
+    const questionComponent = fixture.debugElement.query(By.directive(QuestionStubComponent)).componentInstance;
+    questionComponent.isCorrect.emit(true);
+    fixture.detectChanges();
+    expect(app.isCorrect).toBe(true);
+
+    questionComponent.isCorrect.emit(false);
+    fixture.detectChanges();
+    expect(app.isCorrect).toBe(false);
   });
 });
