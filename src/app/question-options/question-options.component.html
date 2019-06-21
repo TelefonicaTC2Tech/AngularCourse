@@ -1,3 +1,5 @@
-<p>
-  {{ answers.join() }}
-</p>
+<div class="options">
+  <ng-container *ngFor="let answer of answers; let i = index">
+    <div class="option" id="{{ 'option_' + i }}">{{answer}}</div>
+  </ng-container>
+</div>
