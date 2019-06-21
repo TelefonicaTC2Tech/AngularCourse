@@ -8,6 +8,8 @@ import { QuestionService } from './question.service';
 })
 export class AppComponent implements OnInit {
   title = 'Trivial Game';
+  isCorrect: boolean;
+  playing = false;
 
   constructor(private questionService: QuestionService) {}
 
@@ -15,5 +17,9 @@ export class AppComponent implements OnInit {
     // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     // Add 'implements OnInit' to the class.
     this.questionService.initQuestions();
+  }
+
+  computeResult(isCorrect: boolean) {
+    this.isCorrect = isCorrect;
   }
 }
