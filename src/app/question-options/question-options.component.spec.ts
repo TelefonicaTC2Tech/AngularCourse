@@ -30,4 +30,12 @@ describe('QuestionOptionsComponent', () => {
     const options = fixture.nativeElement.querySelectorAll('.option');
     expect(options.length).toBe(4);
   });
+  it('should emit the answer', () => {
+    component.answers = ['a', 'b', 'c', 'd'];
+    fixture.detectChanges();
+    const option = fixture.nativeElement.querySelector('.option'); // select first one
+    component.selected.subscribe(answer => expect(answer).toBe('a'));
+    option.click();
+    fixture.detectChanges();
+  });
 });

@@ -1,5 +1,5 @@
 <div class="options">
   <ng-container *ngFor="let answer of answers; let i = index">
-    <div class="option" id="{{ 'option_' + i }}">{{answer}}</div>
+    <div class="option" id="{{ 'option_' + i }}" (click)="onClick(answer)">{{answer}}</div>
   </ng-container>
 </div>
