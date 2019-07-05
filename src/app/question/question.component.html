@@ -1,5 +1,5 @@
-<div class="question" *ngIf="question">
-  <span class="question-text" [innerHTML]= "question.question"></span>
-  <app-question-options [answers]="question.answers" (selected)="check($event)"></app-question-options>
+<div class="question" *ngIf="question$ | async as q">
+  <span class="question-text" [innerHTML]= "q.question"></span>
+  <app-question-options [answers]="q.answers" (selected)="check($event)"></app-question-options>
   <div class="notification" id="result-msg" *ngIf="showResult">{{result}}</div>
 </div>
