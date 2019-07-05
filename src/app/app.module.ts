@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuestionComponent } from './question/question.component';
 import { QuestionOptionsComponent } from './question-options/question-options.component';
+import { TimerComponent } from './timer/timer.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuestionComponent,
-    QuestionOptionsComponent
+    QuestionOptionsComponent,
+    TimerComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

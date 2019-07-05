@@ -8,8 +8,13 @@ import { QuestionService } from './question.service';
 })
 export class AppComponent implements OnInit {
   title = 'Trivial Game';
-  isCorrect: boolean;
+  /* * workaround to force change detection in timer component * */
+  // tslint:disable-next-line: ban-types
+  isCorrect: Boolean;
   playing = false;
+  score = 0;
+  finish = false;
+
 
   constructor(private questionService: QuestionService) {}
 
@@ -20,6 +25,22 @@ export class AppComponent implements OnInit {
   }
 
   computeResult(isCorrect: boolean) {
-    this.isCorrect = isCorrect;
+    /* * workaround to force change detection in timer component * */
+    // tslint:disable-next-line: no-construct
+    this.isCorrect = new Boolean(isCorrect);
+    /* * end workaround * */
+    this.score = isCorrect ? this.score + 5 : this.score;
+  }
+
+  stop() {
+    this.playing = false;
+    this.finish  = true;
+  }
+
+  managePublish(publish: boolean) {
+    if (publish) {
+      console.log('published');
+    }
+    this.finish = false;
   }
 }

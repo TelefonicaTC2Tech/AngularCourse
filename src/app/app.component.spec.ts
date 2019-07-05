@@ -11,9 +11,21 @@ describe('AppComponent', () => {
   @Component({selector: 'app-question', template: ''})
   class QuestionStubComponent {
     @Input()
-    question: string [] = [];
+    question = {};
     @Output()
     isCorrect = new EventEmitter<string>();
+  }
+
+  @Component({selector: 'app-timer', template: ''})
+  class TimerStubComponent {
+    @Output()
+    timeout = new EventEmitter<boolean>();
+  }
+
+  @Component({selector: 'app-confirm-modal', template: ''})
+  class ModalStubComponent {
+    @Output()
+    modalData = new EventEmitter<boolean>();
   }
 
   beforeEach(async(() => {
@@ -24,7 +36,9 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        QuestionStubComponent
+        QuestionStubComponent,
+        TimerStubComponent,
+        ModalStubComponent
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
@@ -72,10 +86,49 @@ describe('AppComponent', () => {
     const questionComponent = fixture.debugElement.query(By.directive(QuestionStubComponent)).componentInstance;
     questionComponent.isCorrect.emit(true);
     fixture.detectChanges();
-    expect(app.isCorrect).toBe(true);
+    expect(app.isCorrect).toEqual(true);
 
     questionComponent.isCorrect.emit(false);
     fixture.detectChanges();
-    expect(app.isCorrect).toBe(false);
+    expect(app.isCorrect).toEqual(false);
+  });
+
+  it('should compute the score', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.playing = true;
+    fixture.detectChanges();
+
+    const questionComponent = fixture.debugElement.query(By.directive(QuestionStubComponent)).componentInstance;
+    questionComponent.isCorrect.emit(false);
+    fixture.detectChanges();
+    expect(app.score).toBe(0);
+
+    questionComponent.isCorrect.emit(true);
+    fixture.detectChanges();
+    expect(app.score).toBe(5);
+  });
+
+  it('should stop the game', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.playing = true;
+    fixture.detectChanges();
+    const timerComponent = fixture.debugElement.query(By.directive(TimerStubComponent)).componentInstance;
+    timerComponent.timeout.emit(true);
+    fixture.detectChanges();
+    expect(app.finish).toBe(true);
+    expect(app.playing).toBe(false);
+  });
+
+  it('should show modal and publish the score', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.finish = true;
+    fixture.detectChanges();
+    const modalComponent = fixture.debugElement.query(By.directive(ModalStubComponent)).componentInstance;
+    modalComponent.modalData.emit(true);
+    fixture.detectChanges();
+    expect(app.finish).toBe(false);
   });
 });

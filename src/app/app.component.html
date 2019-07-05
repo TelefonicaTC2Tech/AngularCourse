@@ -1,5 +1,14 @@
 <h1>
   Welcome to {{ title }}!
 </h1>
-<button id="trivial-start" class="bnt-primary" (click)="playing = true" *ngIf="!playing">start</button>
-<app-question *ngIf="playing" id="question" (isCorrect)="computeResult($event)"></app-question>
+<button id="trivial-start" class="btn-primary" (click)="playing = true; score = 0" *ngIf="!playing && !finish">start</button>
+<div class='trivial-stage' *ngIf="playing">
+  <div class='infoBar'>
+      <app-timer [isCorrect]="isCorrect" countdown="30" (timeout)="stop()"></app-timer>
+      <div class="score">
+          score: {{ score }}
+      </div>
+  </div>
+  <app-question id="question" (isCorrect)="computeResult($event)"></app-question>
+</div>
+<app-confirm-modal *ngIf="finish" [message]="'SCORE: ' + score + '. Do you want to share it?'" (modalData)="managePublish($event)"></app-confirm-modal>
