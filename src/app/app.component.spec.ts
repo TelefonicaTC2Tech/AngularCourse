@@ -122,6 +122,30 @@ describe('AppComponent', () => {
     expect(app.score).toBe(5);
   });
 
+  it('should compute the score changing difficulty', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.playing = true;
+    fixture.detectChanges();
+
+    const questionComponent = fixture.debugElement.query(By.directive(QuestionStubComponent)).componentInstance;
+    questionComponent.isCorrect.emit(true);
+    fixture.detectChanges();
+    expect(app.score).toBe(5);
+
+    app.difficulty = 'medium';
+    fixture.detectChanges();
+    questionComponent.isCorrect.emit(true);
+    fixture.detectChanges();
+    expect(app.score).toBe(5 + 10);
+
+    app.difficulty = 'hard';
+    fixture.detectChanges();
+    questionComponent.isCorrect.emit(true);
+    fixture.detectChanges();
+    expect(app.score).toBe(15 + 15);
+  });
+
   it('should stop the game', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;

@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   score = 0;
   finish = false;
   difficulty: Difficulty = 'easy';
+  private coefficients = { easy: 1, medium: 2, hard: 3 };
 
   constructor(private questionService: QuestionService) {}
 
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
     // tslint:disable-next-line: no-construct
     this.isCorrect = new Boolean(isCorrect);
     /* * end workaround * */
-    this.score = isCorrect ? this.score + 5 : this.score;
+    this.score = isCorrect ? this.score + 5 * this.coefficients[this.difficulty] : this.score;
   }
 
   stop() {
@@ -43,5 +44,9 @@ export class AppComponent implements OnInit {
       console.log('published');
     }
     this.finish = false;
+  }
+
+  initNewQuestionList(difficulty: Difficulty) {
+    this.questionService.initQuestions(difficulty);
   }
 }
