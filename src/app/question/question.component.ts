@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { QuestionService } from '../question.service';
 import { Question } from '../question';
+import { Observable, EMPTY } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-question',
@@ -8,7 +10,8 @@ import { Question } from '../question';
   styleUrls: ['./question.component.scss']
 })
 export class QuestionComponent implements OnInit {
-  question: Question;
+  correctAnswer: string;
+  question$: Observable<Question>;
   @Output()
   isCorrect = new EventEmitter<boolean>();
   showResult: boolean;
@@ -18,11 +21,12 @@ export class QuestionComponent implements OnInit {
   constructor(private questionService: QuestionService) {}
 
   private getNewQuestion() {
-    this.questionService
-    .getQuestion()
-    .subscribe(
-      q => (this.question = q),
-      _ => console.log('not available question')
+    this.question$ = this.questionService.getQuestion().pipe(
+      tap(q => (this.correctAnswer = q.correct_answer)),
+      catchError(_ => {
+        console.log('not available question');
+        return EMPTY;
+      })
     );
   }
 
@@ -34,10 +38,13 @@ export class QuestionComponent implements OnInit {
     if (this.resultMsgTimer) {
       clearTimeout(this.resultMsgTimer);
     }
-    const isCorrect = response === this.question.correct_answer;
-    this.result = (isCorrect) ? 'correct!' : 'incorrect!';
+    const isCorrect = response === this.correctAnswer;
+    this.result = isCorrect ? 'correct!' : 'incorrect!';
     this.isCorrect.emit(isCorrect);
     this.showResult = true;
-    this.resultMsgTimer = setTimeout(_ => { this.showResult = false; this.getNewQuestion(); }, 1000);
+    this.resultMsgTimer = setTimeout(_ => {
+      this.showResult = false;
+      this.getNewQuestion();
+    }, 1000);
   }
 }
