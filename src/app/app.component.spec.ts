@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { NO_ERRORS_SCHEMA, Input, Output, EventEmitter, Component } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
+import { Difficulty } from './difficulty';
 
 describe('AppComponent', () => {
 
@@ -28,6 +29,17 @@ describe('AppComponent', () => {
     modalData = new EventEmitter<boolean>();
   }
 
+
+  @Component({selector: 'app-difficulty', template: ''})
+  class DifficultyStubComponent {
+    @Input()
+    range: Difficulty[];
+    @Input()
+    difficulty: Difficulty;
+    @Output()
+    difficultyChange = new EventEmitter<Difficulty>();
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -38,7 +50,8 @@ describe('AppComponent', () => {
         AppComponent,
         QuestionStubComponent,
         TimerStubComponent,
-        ModalStubComponent
+        ModalStubComponent,
+        DifficultyStubComponent
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
@@ -130,5 +143,18 @@ describe('AppComponent', () => {
     modalComponent.modalData.emit(true);
     fixture.detectChanges();
     expect(app.finish).toBe(false);
+  });
+
+  it('should show the difficulty', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.playing = false;
+    app.finish = false;
+    fixture.detectChanges();
+    const difficultyComponent = fixture.debugElement.query(By.directive(DifficultyStubComponent)).componentInstance;
+    expect(difficultyComponent.difficulty).toBe('easy');
+    difficultyComponent.difficultyChange.emit('hard');
+    fixture.detectChanges();
+    expect(app.difficulty).toEqual('hard');
   });
 });

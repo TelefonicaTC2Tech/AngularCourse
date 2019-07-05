@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from './question.service';
+import { Difficulty } from './difficulty';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +15,14 @@ export class AppComponent implements OnInit {
   playing = false;
   score = 0;
   finish = false;
-
+  difficulty: Difficulty = 'easy';
 
   constructor(private questionService: QuestionService) {}
 
   ngOnInit(): void {
     // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     // Add 'implements OnInit' to the class.
-    this.questionService.initQuestions();
+    this.questionService.initQuestions(this.difficulty);
   }
 
   computeResult(isCorrect: boolean) {

@@ -1,0 +1,6 @@
+<div class="difficulty-slider">
+  <div>
+    <span *ngFor="let item of range; let last = last">{{ item }}{{!last? ' | ' : '' }}</span>
+  </div>
+  <input #difficultySelector type="range" min="0" max="{{ range?.length - 1 }}" step="1" [value]="range.indexOf(difficulty)" (change)="changeDifficulty(difficultySelector.value)">
+</div>
