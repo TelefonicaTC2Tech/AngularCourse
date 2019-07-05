@@ -3,6 +3,7 @@ import { Question } from './question';
 import { of, Observable, throwError } from 'rxjs';
 import { map, tap, shareReplay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Difficulty } from './difficulty';
 
 interface QuestionResponse {
   category: string;
@@ -19,17 +20,21 @@ interface QuestionResponse {
 export class QuestionService {
   questionList$: Observable<QuestionResponse[]>;
   lastQuestion = -1;
-  serverUrl: string;
 
-  constructor(private http: HttpClient) {
-    this.serverUrl = 'https://opentdb.com/api.php?amount=50&category=11&difficulty=easy';
+  getServerUrl(difficulty: Difficulty) {
+    return `https://opentdb.com/api.php?amount=50&difficulty=${difficulty}`;
   }
 
-  initQuestions() {
+  constructor(private http: HttpClient) {}
+
+  initQuestions(difficulty: Difficulty) {
     this.questionList$ = this.http
-      .get<{result: number; results: QuestionResponse[]}>(this.serverUrl).pipe(
-      map(res => res.results),
-      shareReplay(1)
+      .get<{ result: number; results: QuestionResponse[] }>(
+        this.getServerUrl(difficulty)
+      )
+      .pipe(
+        map(res => res.results),
+        shareReplay(1)
       );
   }
 

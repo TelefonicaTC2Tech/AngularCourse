@@ -7,6 +7,7 @@ import { QuestionComponent } from './question/question.component';
 import { QuestionOptionsComponent } from './question-options/question-options.component';
 import { TimerComponent } from './timer/timer.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { DifficultyComponent } from './difficulty/difficulty.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     QuestionComponent,
     QuestionOptionsComponent,
     TimerComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    DifficultyComponent
   ],
   imports: [
     BrowserModule,

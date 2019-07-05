@@ -39,8 +39,8 @@ describe('QuestionService', () => {
     });
     service = TestBed.get(QuestionService);
     httpTestingController = TestBed.get(HttpTestingController);
-    service.initQuestions();
-    httpTestingController.expectNone(service.serverUrl);
+    service.initQuestions('easy');
+    httpTestingController.expectNone(service.getServerUrl('easy'));
   });
 
   it('should be created', () => {
@@ -55,7 +55,7 @@ describe('QuestionService', () => {
       expect(question.correct_answer).toBeDefined();
       done();
     });
-    const reqQuestions = httpTestingController.expectOne(service.serverUrl);
+    const reqQuestions = httpTestingController.expectOne(service.getServerUrl('easy'));
     reqQuestions.flush({ response_code: 0, results: questionListMock });
   });
 
@@ -70,7 +70,7 @@ describe('QuestionService', () => {
         done();
       }
     );
-    httpTestingController.expectNone(service.serverUrl);
+    httpTestingController.expectNone(service.getServerUrl('easy'));
   });
 
   it('should return a different question in different calls', done => {
@@ -85,7 +85,7 @@ describe('QuestionService', () => {
       expect(q2.question).not.toEqual(q.question);
       done();
     });
-    const reqQuestions = httpTestingController.expectOne(service.serverUrl);
+    const reqQuestions = httpTestingController.expectOne(service.getServerUrl('easy'));
     reqQuestions.flush({ response_code: 0, results: questionListMock });
   });
 
