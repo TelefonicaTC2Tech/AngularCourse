@@ -23,6 +23,7 @@ import { DifficultyComponent } from './difficulty/difficulty.component';
     AppRoutingModule,
     HttpClientModule
   ],
+  entryComponents: [ConfirmModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
