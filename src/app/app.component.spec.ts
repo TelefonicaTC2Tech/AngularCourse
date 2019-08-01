@@ -1,10 +1,13 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { NO_ERRORS_SCHEMA, Input, Output, EventEmitter, Component } from '@angular/core';
+import { NO_ERRORS_SCHEMA, Input, Output, EventEmitter, Component, ApplicationRef } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { Difficulty } from './difficulty';
+import { ModalService } from './modal.service';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 describe('AppComponent', () => {
 
@@ -23,13 +26,6 @@ describe('AppComponent', () => {
     timeout = new EventEmitter<boolean>();
   }
 
-  @Component({selector: 'app-confirm-modal', template: ''})
-  class ModalStubComponent {
-    @Output()
-    modalData = new EventEmitter<boolean>();
-  }
-
-
   @Component({selector: 'app-difficulty', template: ''})
   class DifficultyStubComponent {
     @Input()
@@ -41,6 +37,8 @@ describe('AppComponent', () => {
   }
 
   beforeEach(async(() => {
+    // configure BrowserDynamicTestingModule and override it with entrycomponents
+    // array because it doesn't implmement it.
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -50,10 +48,15 @@ describe('AppComponent', () => {
         AppComponent,
         QuestionStubComponent,
         TimerStubComponent,
-        ModalStubComponent,
+        ConfirmModalComponent,
         DifficultyStubComponent
       ],
-      schemas: [ NO_ERRORS_SCHEMA ]
+      schemas: [ NO_ERRORS_SCHEMA ],
+      providers: [ModalService]
+    }).overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [ ConfirmModalComponent ],
+      }
     }).compileComponents();
   }));
 
@@ -159,12 +162,17 @@ describe('AppComponent', () => {
   });
 
   it('should show modal and publish the score', () => {
+    // Disclaimer: this is not a unit test. It is not mocking ModalService nor ModalComponent.
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    app.finish = true;
+    // ApplicationRef is a reference to the Angular app. In testbed, the AppComponent has not been bootstrapped
+    // so we have to push it manually to let domService to use it to insert the dynamic component.
+    TestBed.get(ApplicationRef).components.push(fixture.componentRef);
+
+    app.stop();
     fixture.detectChanges();
-    const modalComponent = fixture.debugElement.query(By.directive(ModalStubComponent)).componentInstance;
-    modalComponent.modalData.emit(true);
+    const closeBtn = fixture.nativeElement.querySelector('app-confirm-modal #close-button');
+    closeBtn.click();
     fixture.detectChanges();
     expect(app.finish).toBe(false);
   });
