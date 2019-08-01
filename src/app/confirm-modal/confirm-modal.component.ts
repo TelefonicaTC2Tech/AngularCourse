@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { ModalService } from '../modal.service';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -6,21 +7,25 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./confirm-modal.component.scss']
 })
 export class ConfirmModalComponent implements OnInit {
-  @Input()
+
+  set inputs(inputs: {
+    message: string;
+    buttonAcceptText: string;
+    buttonCloseText: string
+  }) {
+    this.message = inputs.message;
+    this.buttonAcceptText = inputs.buttonAcceptText;
+    this.buttonCloseText = inputs.buttonCloseText;
+  }
   message: string;
-  @Input()
   buttonAcceptText: string;
-  @Input()
   buttonCloseText: string;
 
-  @Output()
-  modalData = new EventEmitter<boolean>();
-
-  constructor() {}
+  constructor(private modalService: ModalService) {}
 
   ngOnInit() {}
 
   close(data: boolean) {
-    this.modalData.emit(data);
+    this.modalService.sendModalData(data);
   }
 }
