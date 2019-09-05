@@ -1,0 +1,15 @@
+.icon {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 1rem;
+}
+.timer {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  font-size: 2rem;
+}
+.timer--ending {
+  color: #c00000;
+}

@@ -7,18 +7,27 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class QuestionOptionsComponent implements OnInit {
   @Input()
-  answers: string[];
+  set answers(answers: string[]) {
+    this.clicked = undefined;
+    this.answerList = answers;
+  }
 
   @Output()
   selected = new EventEmitter<string>();
-
+  @Input()
+  result: string;
+  clicked: string;
+  answerList: string[];
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
+
   onClick(answer: string) {
-    this.selected.emit(answer);
+    if (!this.clicked) {
+      this.clicked = answer;
+      this.selected.emit(answer);
+    }
   }
 
 }

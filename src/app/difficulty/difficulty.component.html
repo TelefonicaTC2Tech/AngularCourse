@@ -1,6 +1,7 @@
 <div class="difficulty-slider">
-  <div>
-    <span *ngFor="let item of range; let last = last">{{ item }}{{!last? ' | ' : '' }}</span>
+  <div class="difficulty">
+    Dificulty: {{difficulty}}
   </div>
-  <input #difficultySelector type="range" min="0" max="{{ range?.length - 1 }}" step="1" [value]="range?.indexOf(difficulty)" (change)="changeDifficulty(difficultySelector.value)">
+  <button *ngFor="let item of range" class="btn {{item.color}}" [ngClass]="{'btn-active':item.key===difficulty}"
+    [id]="'change_difficulty_'+item.key" (click)="changeDifficulty(item.key)">{{item.value}}</button>
 </div>
