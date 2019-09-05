@@ -1,5 +1,10 @@
-<div class="question" *ngIf="question$ | async as q">
-  <span class="question-text" [innerHTML]= "q.question"></span>
-  <app-question-options [answers]="q.answers" (selected)="check($event)"></app-question-options>
-  <div class="notification" id="result-msg" *ngIf="showResult">{{result}}</div>
+<div class="question-container" *ngIf="question$ | async as q">
+  <div class="game-container">
+    <h1>Angular Trivial</h1>
+    <div class="questions-container">
+      <div class="category {{colors[q.category]}}">{{q.category}}</div>
+      <div class="question" [innerHTML]="q.question"></div>
+      <app-question-options [answers]="q.answers" (selected)="check($event)" [result]="result"></app-question-options>
+    </div>
+  </div>
 </div>

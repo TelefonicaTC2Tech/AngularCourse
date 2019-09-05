@@ -1,5 +1,6 @@
-<div class="options">
-  <ng-container *ngFor="let answer of answers; let i = index">
-    <div class="option" id="{{ 'option_' + i }}" (click)="onClick(answer)">{{answer}}</div>
-  </ng-container>
-</div>
+<ul class="options">
+  <li class="option" *ngFor="let answer of _anwsers; let i = index" id="{{ 'option_' + i }}" (click)="onClick(answer)"
+    [ngClass]="{'correct':(clicked === answer && result === 'correct!'),'wrong':(clicked === answer && result === 'incorrect!')}">
+    {{answer}}
+  </li>
+</ul>

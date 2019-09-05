@@ -1,0 +1,10 @@
+.content-container {
+  width: 100vw;
+  height: calc(100vh - 4rem);
+  display: flex;
+  background-color: #fafafa;
+  overflow-y: auto;
+  .content {
+    margin: auto;
+  }
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Difficulty } from '../difficulty';
+import { Difficulty, DifficultyObject } from '../difficulty';
 
 @Component({
   selector: 'app-difficulty',
@@ -9,7 +9,7 @@ import { Difficulty } from '../difficulty';
 export class DifficultyComponent implements OnInit {
 
   @Input()
-  range: Difficulty[];
+  range: DifficultyObject[];
   @Input()
   difficulty: Difficulty;
   @Output()
@@ -17,8 +17,8 @@ export class DifficultyComponent implements OnInit {
 
   constructor() { }
 
-  changeDifficulty(index: number) {
-    this.difficultyChange.emit(this.range[index]);
+  changeDifficulty(diff: Difficulty) {
+    this.difficultyChange.emit(diff);
   }
 
   ngOnInit() {

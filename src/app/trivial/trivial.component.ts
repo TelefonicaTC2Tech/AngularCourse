@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuestionService } from '../question.service';
-import { Difficulty } from '../difficulty';
 import { ModalService } from '../modal.service';
+import { Difficulty } from '../difficulty';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
@@ -17,12 +17,13 @@ export class TrivialComponent implements OnInit {
   score = 0;
   finish = false;
   difficulty: Difficulty = 'easy';
-  private coefficients = { easy: 1, medium: 2, hard: 3 };
+  coefficients = { easy: 1, medium: 2, hard: 3 };
+  scoreBase = 5;
 
   constructor(
     private questionService: QuestionService,
     private modalService: ModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -36,7 +37,7 @@ export class TrivialComponent implements OnInit {
     this.isCorrect = new Boolean(isCorrect);
     /* * end workaround * */
     this.score = isCorrect
-      ? this.score + 5 * this.coefficients[this.difficulty]
+      ? this.score + this.scoreBase * this.coefficients[this.difficulty]
       : this.score;
   }
 
@@ -60,7 +61,7 @@ export class TrivialComponent implements OnInit {
 
   private showModalResult() {
     const inputs = {
-      message: 'SCORE: ' + this.score + '. Do you want to share it?'
+      message: 'You scored ' + this.score + '. Do you want to share it?'
     };
 
     this.modalService.open(ConfirmModalComponent, inputs);

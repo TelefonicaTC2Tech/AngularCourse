@@ -1,18 +1,18 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TrivialComponent } from './trivial.component';
 import { NO_ERRORS_SCHEMA, Input, Output, EventEmitter, Component, ApplicationRef } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
-import { Difficulty } from '../difficulty';
-import { ModalService } from '../modal.service';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { Difficulty, DifficultyObject } from '../difficulty';
+import { TrivialComponent } from './trivial.component';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { ModalService } from '../modal.service';
 
 describe('TrivialComponent', () => {
 
   // mocks
-  @Component({selector: 'app-question', template: ''})
+  @Component({ selector: 'app-question', template: '' })
   class QuestionStubComponent {
     @Input()
     question = {};
@@ -20,16 +20,16 @@ describe('TrivialComponent', () => {
     isCorrect = new EventEmitter<string>();
   }
 
-  @Component({selector: 'app-timer', template: ''})
+  @Component({ selector: 'app-timer', template: '' })
   class TimerStubComponent {
     @Output()
     timeout = new EventEmitter<boolean>();
   }
 
-  @Component({selector: 'app-difficulty', template: ''})
+  @Component({ selector: 'app-difficulty', template: '' })
   class DifficultyStubComponent {
     @Input()
-    range: Difficulty[];
+    range: DifficultyObject[];
     @Input()
     difficulty: Difficulty;
     @Output()
@@ -51,11 +51,11 @@ describe('TrivialComponent', () => {
         ConfirmModalComponent,
         DifficultyStubComponent
       ],
-      schemas: [ NO_ERRORS_SCHEMA ],
+      schemas: [NO_ERRORS_SCHEMA],
       providers: [ModalService]
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [ ConfirmModalComponent ],
+        entryComponents: [ConfirmModalComponent],
       }
     }).compileComponents();
   }));
@@ -109,7 +109,7 @@ describe('TrivialComponent', () => {
 
     questionComponent.isCorrect.emit(true);
     fixture.detectChanges();
-    expect(app.score).toBe(5);
+    expect(app.score).toBe(app.coefficients.easy * app.scoreBase);
   });
 
   it('should compute the score changing difficulty', () => {
@@ -121,19 +121,19 @@ describe('TrivialComponent', () => {
     const questionComponent = fixture.debugElement.query(By.directive(QuestionStubComponent)).componentInstance;
     questionComponent.isCorrect.emit(true);
     fixture.detectChanges();
-    expect(app.score).toBe(5);
+    expect(app.score).toBe(app.coefficients.easy * app.scoreBase);
 
     app.difficulty = 'medium';
     fixture.detectChanges();
     questionComponent.isCorrect.emit(true);
     fixture.detectChanges();
-    expect(app.score).toBe(5 + 10);
+    expect(app.score).toBe(app.coefficients.easy * app.scoreBase + app.coefficients.medium * app.scoreBase);
 
     app.difficulty = 'hard';
     fixture.detectChanges();
     questionComponent.isCorrect.emit(true);
     fixture.detectChanges();
-    expect(app.score).toBe(15 + 15);
+    expect(app.score).toBe(app.coefficients.easy * app.scoreBase + app.coefficients.medium * app.scoreBase + app.coefficients.hard * app.scoreBase);
   });
 
   it('should stop the game', () => {

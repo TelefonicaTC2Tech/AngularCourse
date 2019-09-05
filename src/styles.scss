@@ -1,1 +1,121 @@
 /* You can add global styles to this file, and also import other style files */
+@import "assets/scss/reset.scss";
+@import "assets/scss/bootstrap-grid.scss";
+@import "assets/scss/buttons.scss";
+
+//Card Colors
+$bg-color: #1b3861;
+$gold: #ecba1d;
+//Cheese and Pieces
+$cheese: #efe115;
+$bg-cheese: #b7af17;
+$blue: #72aae7;
+$pink: #dd82ae;
+$green: #56b945;
+$brown: #a67a2f;
+$yellow: #e5e112;
+$orange: #e7942e;
+$red: red;
+//General rules
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+//Card
+.question-container {
+  max-width: 350px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  background: $bg-color;
+  box-shadow: 0.25em 0.25em 0.5em #333333;
+  @media (max-width: 350px) {
+    max-width: 270px;
+  }
+}
+
+.game-container {
+  width: calc(100% - 1.6em);
+  margin: 0.8em;
+  border: 0.15em solid $gold;
+  h1 {
+    text-align: center;
+    margin: 0.4em 0.2em 0 0;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: $gold;
+    font-family: "Great Vibes", cursive;
+    background: $bg-color;
+  }
+}
+
+.questions-container {
+  width: 100%;
+  background: white;
+  margin: 1em auto 0;
+}
+
+.category {
+  height: auto;
+  color: white;
+  padding: 0.2em 1.2em;
+  font-size: 1.5rem;
+  font-weight: 900;
+  &.yellow {
+    background: $yellow;
+  }
+  &.blue {
+    background: $blue;
+  }
+  &.green {
+    background: $green;
+  }
+  &.brown {
+    background: $brown;
+  }
+  &.orange {
+    background: $orange;
+  }
+  &.pink {
+    background: $pink;
+  }
+  &.red {
+    background: $red;
+  }
+}
+
+.question {
+  background: #ddd;
+  padding: 0.7em 2em;
+}
+
+.option {
+  padding: 0.9em 2em;
+  color: #777;
+  &:hover {
+    color: #111;
+    cursor: pointer;
+  }
+  &.correct {
+    background-color: #56b945;
+  }
+  &.wrong {
+    background-color: red;
+  }
+}
+
+.card {
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px;
+}
