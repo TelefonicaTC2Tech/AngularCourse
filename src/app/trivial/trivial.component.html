@@ -1,0 +1,21 @@
+<div class="card" *ngIf="!playing && !finish">
+  <app-difficulty [range]="[{key:'easy', value:'Easy', color:'btn-primary'},
+    {key:'medium', value:'Medium', color:'btn-warning'},  
+    {key:'hard', value:'Hard', color:'btn-cancel'}]" [(difficulty)]="difficulty"
+    (difficultyChange)="initNewQuestionList($event)"></app-difficulty>
+  <button id="trivial-start" class="btn btn-secondary btn-small" (click)="playing = true; score = 0">Start</button>
+</div>
+<div class='trivial-stage' *ngIf="playing">
+  <div class='infoBar row'>
+    <div class="col-6">
+      <div class="difficulty">Difficulty: {{ difficulty }}</div>
+      <div class="score">
+        Score: {{ score }}
+      </div>
+    </div>
+    <div class="col-6">
+      <app-timer [isCorrect]="isCorrect" countdown="300" (timeout)="stop()"></app-timer>
+    </div>
+  </div>
+  <app-question id="question" (isCorrect)="computeResult($event)"></app-question>
+</div>

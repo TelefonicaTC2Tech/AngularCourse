@@ -1,0 +1,265 @@
+// new buttons
+$btn-primary-text: #ffffff;
+$btn-primary-bg: #11aa5b;
+$btn-primary-bg-hover: #18c77a;
+$btn-primary-bg-active: #088c3b;
+
+$btn-cancel-text: #ffffff;
+$btn-cancel-bg: #b60612;
+$btn-cancel-bg-hover: #e20303;
+$btn-cancel-bg-active: #860208;
+
+$btn-secondary-text: #ffffff;
+$btn-secondary-bg: #2593b5;
+$btn-secondary-bg-hover: #36b4d0;
+$btn-secondary-bg-active: #147299;
+
+$btn-warning-text: #ffffff;
+$btn-warning-bg: #b5ab25;
+$btn-warning-bg-hover: #c6d036;
+$btn-warning-bg-active: #979914;
+
+.btn {
+  position: relative;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  text-align: center;
+  width: 100%;
+  border-radius: 3px;
+  max-width: 170px;
+  outline: none;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: none;
+  transition: all 0.1s linear;
+  padding: 0.7em 0.7em;
+  margin: 0 0.3em 0.3em 0;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  &.btn-small {
+    font-size: 0.8em;
+    height: auto;
+    max-width: 130px;
+  }
+}
+
+.btn-primary {
+  color: $btn-primary-text;
+  background: $btn-primary-bg;
+
+  &.btn-active {
+    color: $btn-primary-text;
+    background: $btn-primary-bg-active;
+  }
+  &:hover,
+  &:focus {
+    color: $btn-primary-text;
+    background: $btn-primary-bg-hover;
+  }
+
+  &.disabled,
+  &[disabled],
+  &:hover.disabled,
+  &:hover[disabled] {
+    background-color: $btn-primary-bg !important;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.btn-primary-bg-white {
+  color: $btn-primary-bg;
+  background: $btn-primary-text;
+  box-shadow: 0 0 0 1pt $btn-primary-bg inset;
+
+  &.btn-active {
+    color: $btn-primary-text;
+    background: $btn-primary-bg-active;
+  }
+  &:hover,
+  &:focus {
+    color: $btn-primary-text;
+    background: $btn-primary-bg-hover;
+  }
+
+  &.disabled,
+  &[disabled],
+  &:hover.disabled,
+  &:hover[disabled] {
+    color: $btn-primary-bg;
+    background: $btn-primary-text;
+    box-shadow: 0 0 0 1pt $btn-primary-bg inset;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.btn-cancel {
+  color: $btn-cancel-text;
+  background: $btn-cancel-bg;
+  span {
+    vertical-align: middle;
+  }
+  &.btn-active {
+    color: $btn-cancel-text;
+    background: $btn-cancel-bg-active;
+  }
+  &:hover,
+  &:focus {
+    color: $btn-cancel-text;
+    background: $btn-cancel-bg-hover;
+  }
+
+  &.disabled,
+  &[disabled],
+  &:hover.disabled,
+  &:hover[disabled] {
+    background-color: $btn-cancel-bg !important;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.btn-cancel-bg-white {
+  color: $btn-cancel-bg;
+  background: $btn-cancel-text;
+  box-shadow: 0 0 0 1pt $btn-cancel-bg inset;
+  &.btn-active {
+    color: $btn-cancel-text;
+    background: $btn-cancel-bg-active;
+  }
+  &:hover,
+  &:focus {
+    color: $btn-cancel-text;
+    background: $btn-cancel-bg-hover;
+  }
+
+  &.disabled,
+  &[disabled],
+  &:hover.disabled,
+  &:hover[disabled] {
+    color: $btn-cancel-bg;
+    background: $btn-cancel-text;
+    box-shadow: 0 0 0 1pt $btn-cancel-bg inset;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.btn-secondary {
+  color: $btn-secondary-text;
+  background: $btn-secondary-bg;
+
+  &.btn-active {
+    color: $btn-secondary-text;
+    background: $btn-secondary-bg-active;
+  }
+  &:hover,
+  &:focus {
+    color: $btn-secondary-text;
+    background: $btn-secondary-bg-hover;
+  }
+
+  &.disabled,
+  &[disabled],
+  &:hover.disabled,
+  &:hover[disabled] {
+    background-color: $btn-secondary-bg !important;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.btn-secondary-bg-white {
+  color: $btn-secondary-bg;
+  background: $btn-secondary-text;
+  box-shadow: 0 0 0 1pt $btn-secondary-bg inset;
+  &.btn-active {
+    color: $btn-secondary-text;
+    background: $btn-secondary-bg-active;
+  }
+
+  &:hover,
+  &:focus {
+    color: $btn-secondary-text;
+    background: $btn-secondary-bg-hover;
+  }
+
+  &.disabled,
+  &[disabled],
+  &:hover.disabled,
+  &:hover[disabled] {
+    color: $btn-secondary-bg;
+    background: $btn-secondary-text;
+    box-shadow: 0 0 0 1pt $btn-secondary-bg inset;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+.btn-warning {
+  color: $btn-warning-text;
+  background: $btn-warning-bg;
+  &.btn-active {
+    color: $btn-warning-text;
+    background: $btn-warning-bg-active;
+  }
+  &:hover,
+  &:focus {
+    color: $btn-warning-text;
+    background: $btn-warning-bg-hover;
+  }
+
+  &.disabled,
+  &[disabled],
+  &:hover.disabled,
+  &:hover[disabled] {
+    background-color: $btn-warning-bg !important;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.btn-warning-bg-white {
+  color: $btn-warning-bg;
+  background: $btn-warning-text;
+  box-shadow: 0 0 0 1pt $btn-warning-bg inset;
+  &.btn-active {
+    color: $btn-warning-text;
+    background: $btn-warning-bg-active;
+  }
+
+  &:hover,
+  &:focus {
+    color: $btn-warning-text;
+    background: $btn-warning-bg-hover;
+  }
+
+  &.disabled,
+  &[disabled],
+  &:hover.disabled,
+  &:hover[disabled] {
+    color: $btn-warning-bg;
+    background: $btn-warning-text;
+    box-shadow: 0 0 0 1pt $btn-warning-bg inset;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+.btn-active {
+  box-shadow: 0px 0px 10px #5da9ff;
+}
+button:focus {
+  outline: 0;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}

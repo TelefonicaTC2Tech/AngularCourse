@@ -25,7 +25,7 @@ export class QuestionService {
     return `https://opentdb.com/api.php?amount=50&difficulty=${difficulty}`;
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   initQuestions(difficulty: Difficulty) {
     this.questionList$ = this.http
@@ -52,9 +52,9 @@ export class QuestionService {
       map((questions: QuestionResponse[]) => {
         const originalQuestion = questions[this.lastQuestion];
         const answers = [...originalQuestion.incorrect_answers, originalQuestion.correct_answer].sort();
-        const question = {...originalQuestion, answers};
+        const question = { ...originalQuestion, answers };
         delete question.incorrect_answers;
-
+        console.log(question)
         return question as Question;
       })
     );

@@ -3,6 +3,7 @@ import { QuestionService } from '../question.service';
 import { Question } from '../question';
 import { Observable, EMPTY } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import { colors } from '../colors';
 
 @Component({
   selector: 'app-question',
@@ -17,8 +18,8 @@ export class QuestionComponent implements OnInit {
   showResult: boolean;
   resultMsgTimer;
   result: 'correct!' | 'incorrect!';
-
-  constructor(private questionService: QuestionService) {}
+  colors = colors
+  constructor(private questionService: QuestionService) { }
 
   private getNewQuestion() {
     this.question$ = this.questionService.getQuestion().pipe(

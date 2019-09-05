@@ -8,6 +8,9 @@ import { QuestionOptionsComponent } from './question-options/question-options.co
 import { TimerComponent } from './timer/timer.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { DifficultyComponent } from './difficulty/difficulty.component';
+import { HeaderComponent } from './header/header.component';
+import { ContentAttributionComponent } from './content-attribution/content-attribution.component';
+import { TrivialComponent } from './trivial/trivial.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { DifficultyComponent } from './difficulty/difficulty.component';
     QuestionOptionsComponent,
     TimerComponent,
     ConfirmModalComponent,
-    DifficultyComponent
+    DifficultyComponent,
+    HeaderComponent,
+    ContentAttributionComponent,
+    TrivialComponent
   ],
   imports: [
     BrowserModule,

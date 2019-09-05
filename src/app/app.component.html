@@ -1,18 +1,6 @@
-<h1>
-  Welcome to {{ title }}!
-</h1>
-<div *ngIf="!playing && !finish" >
-    <app-difficulty [range]="['easy', 'medium', 'hard']" [(difficulty)]="difficulty" (difficultyChange)="initNewQuestionList($event)"></app-difficulty>
-    <button id="trivial-start" class="btn-primary" (click)="playing = true; score = 0">start</button>
-</div>
-<div class='trivial-stage' *ngIf="playing">
-  <div class='infoBar'>
-      <app-timer [isCorrect]="isCorrect" countdown="30" (timeout)="stop()"></app-timer>
-      <div class="score">
-          score: {{ score }}
-      </div>
-      <div class="difficulty">Difficulty: {{ difficulty }}</div>
+<app-header [title]="title"></app-header>
+<div class="content-container">
+  <div class="content">
+    <router-outlet></router-outlet>
   </div>
-  <app-question id="question" (isCorrect)="computeResult($event)"></app-question>
 </div>
-
