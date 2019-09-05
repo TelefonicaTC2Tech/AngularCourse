@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="col-6">
-      <app-timer [isCorrect]="isCorrect" countdown="300" (timeout)="stop()"></app-timer>
+      <app-timer [isCorrect]="isCorrect" countdown="30" (timeout)="stop()"></app-timer>
     </div>
   </div>
   <app-question id="question" (isCorrect)="computeResult($event)"></app-question>
