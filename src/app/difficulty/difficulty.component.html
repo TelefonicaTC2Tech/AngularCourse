@@ -3,5 +3,5 @@
     Dificulty: {{difficulty}}
   </div>
   <button *ngFor="let item of range" class="btn {{item.color}}" [ngClass]="{'btn-active':item.key===difficulty}"
-    (click)="changeDifficulty(item.key)">{{item.value}}</button>
+    [id]="'change_difficulty_'+item.key" (click)="changeDifficulty(item.key)">{{item.value}}</button>
 </div>

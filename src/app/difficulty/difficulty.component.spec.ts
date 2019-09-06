@@ -28,10 +28,9 @@ describe('DifficultyComponent', () => {
     { key: 'medium', value: 'Medium', color: 'btn-warning' },
     { key: 'hard', value: 'Hard', color: 'btn-cancel' }];
     fixture.detectChanges();
-    const difficulty = fixture.nativeElement.querySelector('.difficulty-slider input');
+    const difficultyHard = fixture.nativeElement.querySelector('#change_difficulty_hard');
     component.difficultyChange.subscribe(value => expect(value).toBe('hard'));
-    difficulty.value = 2;
-    difficulty.dispatchEvent(new Event('change'));
+    difficultyHard.click()
     fixture.detectChanges();
   });
 
