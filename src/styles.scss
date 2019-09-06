@@ -39,8 +39,8 @@ $red: red;
 }
 
 .game-container {
-  width: 92%;
-  margin: 0.8em auto;
+  width: calc(100% - 1.6em);
+  margin: 0.8em;
   border: 0.15em solid $gold;
   h1 {
     text-align: center;
