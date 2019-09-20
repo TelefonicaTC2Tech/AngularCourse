@@ -9,6 +9,8 @@ import { TimerComponent } from './timer/timer.component';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { DifficultyComponent } from './difficulty/difficulty.component';
 import { TrivialComponent } from './trivial/trivial.component';
+import { HeaderComponent } from './header/header.component';
+import { ContentAttributionComponent } from './content-attribution/content-attribution.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { TrivialComponent } from './trivial/trivial.component';
     TimerComponent,
     ConfirmModalComponent,
     DifficultyComponent,
-    TrivialComponent
+    TrivialComponent,
+    HeaderComponent,
+    ContentAttributionComponent
   ],
   imports: [
     BrowserModule,
