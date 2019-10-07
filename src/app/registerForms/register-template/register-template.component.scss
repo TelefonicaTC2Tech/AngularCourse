@@ -1,0 +1,14 @@
+.form-element {
+  display: flex;
+  flex-direction: column;
+}
+.card {
+  width: 500px;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+.error {
+  color: red;
+}
