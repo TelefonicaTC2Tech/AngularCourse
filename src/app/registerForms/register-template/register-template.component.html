@@ -1,0 +1,22 @@
+<form class="card row" #f="ngForm">
+  <div class="col-12 form-element">
+    Name
+    <input type="text" [(ngModel)]="user.name" />
+  </div>
+  <div class="col-12 form-element">
+    Email
+    <input type="text" [(ngModel)]="user.email" />
+  </div>
+  <div class="col-12 form-element">
+    Password
+    <input type="password" [(ngModel)]="user.password" />
+  </div>
+  <div class="col-12 form-element">
+    Repeat Password
+    <input type="password" [(ngModel)]="user.repeatPassword" />
+  </div>
+  <div class="col-12 button-container">
+    <button class="btn btn-primary" [ngClass]="{'disabled':f.pristine}" [attr.disabled]="f.pristine ? '' : null"
+      (click)="register(f)">Register</button>
+  </div>
+</form>

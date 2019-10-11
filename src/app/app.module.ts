@@ -12,6 +12,7 @@ import { TrivialComponent } from './trivial/trivial.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentAttributionComponent } from './content-attribution/content-attribution.component';
 import { RegisterReactiveComponent } from './registerForms/register-reactive/register-reactive.component';
+import { RegisterTemplateComponent } from './registerForms/register-template/register-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     ContentAttributionComponent,
     TrivialComponent,
-    RegisterReactiveComponent
+    RegisterReactiveComponent,
+    RegisterTemplateComponent
   ],
   imports: [
     BrowserModule,
