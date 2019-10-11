@@ -11,6 +11,8 @@ import { DifficultyComponent } from './difficulty/difficulty.component';
 import { TrivialComponent } from './trivial/trivial.component';
 import { HeaderComponent } from './header/header.component';
 import { ContentAttributionComponent } from './content-attribution/content-attribution.component';
+import { RegisterReactiveComponent } from './registerForms/register-reactive/register-reactive.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,10 +24,14 @@ import { ContentAttributionComponent } from './content-attribution/content-attri
     DifficultyComponent,
     TrivialComponent,
     HeaderComponent,
-    ContentAttributionComponent
+    ContentAttributionComponent,
+    TrivialComponent,
+    RegisterReactiveComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule
   ],
