@@ -3,13 +3,16 @@ import { QuestionService } from '../question.service';
 import { ModalService } from '../modal.service';
 import { Difficulty } from '../difficulty';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
+import { Observable } from 'rxjs';
+import { CanComponentDeactivate } from '../can-deactivate.guard';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-trivial',
   templateUrl: './trivial.component.html',
   styleUrls: ['./trivial.component.scss']
 })
-export class TrivialComponent implements OnInit {
+export class TrivialComponent implements OnInit, CanComponentDeactivate {
   /* * workaround to force change detection in timer component * */
   // tslint:disable-next-line: ban-types
   isCorrect: Boolean;
@@ -23,7 +26,7 @@ export class TrivialComponent implements OnInit {
   constructor(
     private questionService: QuestionService,
     private modalService: ModalService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -67,5 +70,17 @@ export class TrivialComponent implements OnInit {
     this.modalService.modalData$.subscribe((result: boolean) =>
       this.managePublish(result)
     );
+  }
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if (this.playing && !this.finish) {
+      const inputs = {
+        title: 'Hey dude',
+        message: 'Are your sure you want to leave the game?'
+      };
+      this.modalService.open(ConfirmModalComponent, inputs);
+      return this.modalService.modalData$;
+    }
+    return true;
   }
 }
