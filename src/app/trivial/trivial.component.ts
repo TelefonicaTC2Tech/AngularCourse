@@ -22,6 +22,7 @@ export class TrivialComponent implements OnInit, CanComponentDeactivate {
   difficulty: Difficulty = 'easy';
   coefficients = { easy: 1, medium: 2, hard: 3 };
   scoreBase = 5;
+  freeze = false;
 
   constructor(
     private questionService: QuestionService,
@@ -74,12 +75,13 @@ export class TrivialComponent implements OnInit, CanComponentDeactivate {
 
   canDeactivate(): boolean | Observable<boolean> {
     if (this.playing && !this.finish) {
+      this.freeze = true;
       const inputs = {
         title: 'Hey dude',
         message: 'Are your sure you want to leave the game?'
       };
       this.modalService.open(ConfirmModalComponent, inputs);
-      return this.modalService.modalData$;
+      return this.modalService.modalData$.pipe(tap(_ => this.freeze = false));
     }
     return true;
   }

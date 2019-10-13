@@ -205,4 +205,26 @@ describe('TrivialComponent', () => {
     fixture.detectChanges();
     expect(app.difficulty).toEqual('hard');
   });
+
+  it('should freeze time and show modal', () => {
+    // Disclaimer: this is not a unit test. It is not mocking ModalService nor ModalComponent.
+    const fixture = TestBed.createComponent(TrivialComponent);
+    const app = fixture.debugElement.componentInstance;
+    // ApplicationRef is a reference to the Angular app. In testbed, the AppComponent has not been bootstrapped
+    // so we have to push it manually to let domService to use it to insert the dynamic component.
+    TestBed.get(ApplicationRef).components.push(fixture.componentRef);
+    app.playing = true;
+    app.finish = false;
+    app.canDeactivate().subscribe(result => {
+      expect(result).toBe(false);
+      expect(app.freeze).toBe(false);
+    });
+    fixture.detectChanges();
+    expect(app.freeze).toBe(true);
+    const closeBtn = fixture.nativeElement.querySelector(
+      'app-confirm-modal #close-button'
+    );
+    closeBtn.click();
+    fixture.detectChanges();
+  });
 });

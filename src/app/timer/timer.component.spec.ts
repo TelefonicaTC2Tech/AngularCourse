@@ -61,4 +61,21 @@ describe('TimerComponent', () => {
     expect(component.seconds).toBe(0);
     discardPeriodicTasks();
   }));
+  it('should freeze', fakeAsync(() => {
+    component.countdown = 5;
+    component.isCorrect = null;
+    fixture.detectChanges();
+    tick(1000);
+    fixture.detectChanges();
+    expect(component.seconds).toBe(4);
+    component.freeze = true;
+    tick(2000);
+    fixture.detectChanges();
+    expect(component.seconds).toBe(4);
+    component.freeze = false;
+    tick(2000);
+    fixture.detectChanges();
+    expect(component.seconds).toBe(2);
+    discardPeriodicTasks();
+  }));
 });
