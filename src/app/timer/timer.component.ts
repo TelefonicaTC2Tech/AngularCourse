@@ -19,6 +19,16 @@ export class TimerComponent implements OnInit {
   }
   @Input()
   countdown = 30;
+  @Input()
+  set freeze(value: boolean) {
+    if (this.seconds !== undefined) {
+      if (value) {
+        this.intervalSubscription.unsubscribe();
+      } else {
+        this.intervalSubscription = interval(1000).subscribe(this.decrement);
+      }
+    }
+  }
   @Output()
   timeout = new EventEmitter<boolean>();
   seconds: number;
