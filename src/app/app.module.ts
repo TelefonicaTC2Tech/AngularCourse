@@ -16,6 +16,7 @@ import { RegisterTemplateComponent } from './registerForms/register-template/reg
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MustMatchDirective } from './registerForms/register-template/mustMatch.directive';
 import { CheckboxComponent } from './registerForms/checkbox/checkbox.component';
+import { CanDeactivateGuard } from './can-deactivate.guard';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { CheckboxComponent } from './registerForms/checkbox/checkbox.component';
     HttpClientModule
   ],
   entryComponents: [ConfirmModalComponent],
-  providers: [],
+  providers: [CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
