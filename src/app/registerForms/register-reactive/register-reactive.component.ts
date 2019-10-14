@@ -18,7 +18,7 @@ export class RegisterReactiveComponent {
         email: new FormControl(null, [Validators.required, Validators.email]),
         password: new FormControl(null, [Validators.required, Validators.minLength(5)]),
         repeatPassword: new FormControl(null, [Validators.required, Validators.minLength(5)])
-      })
+      }, fieldsEqual('password', 'repeatPassword', 'passwordsMatch'))
     */
 
     this.form = builder.group({
@@ -26,7 +26,7 @@ export class RegisterReactiveComponent {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(5)]],
       repeatPassword: [null, [Validators.required, Validators.minLength(5)]]
-    })
+    }, { validators: fieldsEqual('password', 'repeatPassword', 'passwordsMatch') })
   }
 
   register() {

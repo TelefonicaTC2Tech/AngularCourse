@@ -162,4 +162,39 @@ describe('RegisterTemplateComponent', () => {
       expect(hostElement.querySelector('#password-error')).toBeTruthy();
     });
   });
+  it('should show errors in repeat password field when neccesary', () => {
+    // Repeat Password field must match the password field 
+    // Errors will not show if the field isnt touched
+    // whenStable is needed to work with ngForm and template forms
+    fixture.whenStable().then(() => {
+      expect(hostElement.querySelector('#password-error')).toBeFalsy();
+      const passwordField = hostElement.querySelector('#password') as HTMLInputElement
+      const repeatPasswordField = hostElement.querySelector('#repeatPassword') as HTMLInputElement
+      repeatPasswordField.dispatchEvent(new Event('blur'));
+      fixture.detectChanges();
+      expect(hostElement.querySelector('#repeatpassword-error')).toBeTruthy();
+      passwordField.value = "password"
+      passwordField.dispatchEvent(new Event('input'));
+      repeatPasswordField.value = "password"
+      repeatPasswordField.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(hostElement.querySelector('#repeatpassword-error')).toBeFalsy();
+      passwordField.value = "pass"
+      passwordField.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(hostElement.querySelector('#repeatpassword-error')).toBeTruthy();
+      passwordField.value = "password"
+      passwordField.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(hostElement.querySelector('#repeatpassword-error')).toBeFalsy();
+      repeatPasswordField.value = "randomdifferentpassword"
+      repeatPasswordField.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(hostElement.querySelector('#repeatpassword-error')).toBeTruthy();
+      passwordField.value = "randomdifferentpassword"
+      passwordField.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      expect(hostElement.querySelector('#repeatpassword-error')).toBeFalsy();
+    });
+  });
 });

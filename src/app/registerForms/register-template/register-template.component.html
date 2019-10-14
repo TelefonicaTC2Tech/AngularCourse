@@ -1,4 +1,4 @@
-<form class="card row" #f="ngForm">
+<form class="card row" #f="ngForm" [mustMatch]="['password', 'confirmPassword']" novalidate>
   <div class="col-12 form-element">
     Username
     <input type="text" [(ngModel)]="user.name" required minlength="5" name="name" #name="ngModel" id="username" />
@@ -25,6 +25,9 @@
     Repeat Password
     <input type="password" [(ngModel)]="user.repeatPassword" required name="confirmPassword" #confirmPassword="ngModel"
       id="repeatPassword" />
+    <div id="repeatpassword-error" class="error"
+      *ngIf="confirmPassword.touched && (confirmPassword.invalid||(confirmPassword.errors&&confirmPassword.errors.mustMatch))">
+      Passwords must match</div>
   </div>
   <div class="col-12 button-container">
     <button id="register-btn" class="btn btn-primary" [ngClass]="{'disabled':f.pristine}"
