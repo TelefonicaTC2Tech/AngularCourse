@@ -1,22 +1,31 @@
 <div class="card row" [formGroup]="form">
   <div class="col-12 form-element">
-    Name
-    <input type="text" formControlName="name" />
+    Username
+    <input type="text" formControlName="name" id="username" />
+    <div id="username-error" class="error" *ngIf="form.get('name').invalid && form.get('name').touched">
+      This field is mandatory and must contain at least 5 characters
+    </div>
   </div>
   <div class="col-12 form-element">
     Email
-    <input type="text" formControlName="email" />
+    <input type="text" formControlName="email" id="email" />
+    <div id="email-error" class="error" *ngIf="form.get('email').invalid && form.get('email').touched">
+      This field is mandatory and must be a valid email
+    </div>
   </div>
   <div class="col-12 form-element">
     Password
-    <input type="password" formControlName="password" />
+    <input type="password" formControlName="password" id="password" />
+    <div id="password-error" class="error" *ngIf="form.get('password').invalid && form.get('password').touched">
+      This field is mandatory and must contain at least 5 characters
+    </div>
   </div>
   <div class="col-12 form-element">
     Repeat Password
-    <input type="password" formControlName="repeatPassword" />
+    <input type="password" formControlName="repeatPassword" id="repeatPassword" />
   </div>
   <div class="col-12 button-container">
-    <button class="btn btn-primary" [ngClass]="{'disabled':form.pristine}" [attr.disabled]="form.pristine ? '' : null"
-      (click)="register()">Register</button>
+    <button id="register-btn" class="btn btn-primary" [ngClass]="{'disabled':form.pristine}"
+      [attr.disabled]="form.pristine ? '' : null" (click)="register()">Register</button>
   </div>
 </div>
