@@ -14,18 +14,18 @@ export class RegisterReactiveComponent {
     // This way of doing it is harder to keep track of, better use FormBuilder
     /*
       this.form = new FormGroup({
-        name: new FormControl(null),
-        email: new FormControl(null),
-        password: new FormControl(null),
-        repeatPassword: new FormControl(null)
-      }, passwordsEqual)
+        name: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        password: new FormControl(null, [Validators.required, Validators.minLength(5)]),
+        repeatPassword: new FormControl(null, [Validators.required, Validators.minLength(5)])
+      })
     */
 
     this.form = builder.group({
-      name: null,
-      email: null,
-      password: null,
-      repeatPassword: null
+      name: [null, [Validators.required, Validators.minLength(5)]],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(5)]],
+      repeatPassword: [null, [Validators.required, Validators.minLength(5)]]
     })
   }
 
