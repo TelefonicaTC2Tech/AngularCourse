@@ -23,6 +23,10 @@
   <div class="col-12 form-element">
     Repeat Password
     <input type="password" formControlName="repeatPassword" id="repeatPassword" />
+    <div id="repeatpassword-error" class="error"
+      *ngIf="form.errors?.passwordsMatch && form.get('repeatPassword').touched">
+      Passwords must match
+    </div>
   </div>
   <div class="col-12 button-container">
     <button id="register-btn" class="btn btn-primary" [ngClass]="{'disabled':form.pristine}"

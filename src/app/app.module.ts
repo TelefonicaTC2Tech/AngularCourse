@@ -14,6 +14,7 @@ import { ContentAttributionComponent } from './content-attribution/content-attri
 import { RegisterReactiveComponent } from './registerForms/register-reactive/register-reactive.component';
 import { RegisterTemplateComponent } from './registerForms/register-template/register-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MustMatchDirective } from './registerForms/register-template/mustMatch.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ContentAttributionComponent,
     TrivialComponent,
     RegisterReactiveComponent,
-    RegisterTemplateComponent
+    RegisterTemplateComponent,
+    MustMatchDirective
   ],
   imports: [
     BrowserModule,
