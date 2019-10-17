@@ -12,13 +12,14 @@ export class RegisterTemplateComponent {
     name: '',
     email: '',
     password: '',
-    repeatPassword: ''
+    repeatPassword: '',
+    termsAndConditions: false
   }
   constructor() { }
 
   register(form) {
     // TODO: Send request to backend creating user
-    if (form.valid) {
+    if (form.valid && this.user.termsAndConditions) {
       console.log(this.user)
     } else {
       markFormGroupTouched(form)

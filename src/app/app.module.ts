@@ -15,6 +15,7 @@ import { RegisterReactiveComponent } from './registerForms/register-reactive/reg
 import { RegisterTemplateComponent } from './registerForms/register-template/register-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MustMatchDirective } from './registerForms/register-template/mustMatch.directive';
+import { CheckboxComponent } from './registerForms/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MustMatchDirective } from './registerForms/register-template/mustMatch.
     TrivialComponent,
     RegisterReactiveComponent,
     RegisterTemplateComponent,
-    MustMatchDirective
+    MustMatchDirective,
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,

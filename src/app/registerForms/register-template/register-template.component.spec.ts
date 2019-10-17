@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegisterTemplateComponent } from './register-template.component';
 import { FormsModule } from '@angular/forms';
 import { MustMatchDirective } from './mustMatch.directive';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 describe('RegisterTemplateComponent', () => {
   let component: RegisterTemplateComponent;
@@ -11,7 +12,7 @@ describe('RegisterTemplateComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RegisterTemplateComponent, MustMatchDirective],
+      declarations: [RegisterTemplateComponent, MustMatchDirective, CheckboxComponent],
       imports: [FormsModule]
     })
       .compileComponents();
