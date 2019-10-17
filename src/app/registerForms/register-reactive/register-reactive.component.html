@@ -28,6 +28,11 @@
       Passwords must match
     </div>
   </div>
+  <checkbox-question [label]="'Accept terms and conditions'" formControlName="termsAndConditions"></checkbox-question>
+  <div id="terms-error" class="error"
+    *ngIf="form.get('termsAndConditions').invalid && form.get('termsAndConditions').touched">
+    You must accept the terms and conditions
+  </div>
   <div class="col-12 button-container">
     <button id="register-btn" class="btn btn-primary" [ngClass]="{'disabled':form.pristine}"
       [attr.disabled]="form.pristine ? '' : null" (click)="register()">Register</button>

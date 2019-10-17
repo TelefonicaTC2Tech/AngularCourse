@@ -29,6 +29,11 @@
       *ngIf="confirmPassword.touched && (confirmPassword.invalid||(confirmPassword.errors&&confirmPassword.errors.mustMatch))">
       Passwords must match</div>
   </div>
+  <checkbox-question [label]="'Accept terms and conditions'" [(ngModel)]="user.termsAndConditions"
+    name="termsAndConditions" #termsAndConditions="ngModel"></checkbox-question>
+  <div id="terms-error" class="error" *ngIf="!termsAndConditions.value && termsAndConditions.touched">
+    You must accept the terms and conditions
+  </div>
   <div class="col-12 button-container">
     <button id="register-btn" class="btn btn-primary" [ngClass]="{'disabled':f.pristine}"
       [attr.disabled]="f.pristine ? '' : null" (click)="register(f)">Register</button>

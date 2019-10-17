@@ -1,0 +1,47 @@
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.cyb-check-container {
+  padding-left: 22px;
+  position: relative;
+  line-height: 16px;
+  cursor: pointer;
+  input {
+    display: none;
+  }
+  &:hover input ~ .checkmark {
+    background-color: lightgrey;
+  }
+  input:disabled ~ .checkmark {
+    background-color: lightgrey;
+    border-color: darkgrey;
+  }
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+  .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
+.checkmark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 3px;
+}

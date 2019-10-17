@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterReactiveComponent } from './register-reactive.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 describe('RegisterReactiveComponent', () => {
   let component: RegisterReactiveComponent;
@@ -9,8 +10,8 @@ describe('RegisterReactiveComponent', () => {
   let hostElement: HTMLElement
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RegisterReactiveComponent],
-      imports: [ReactiveFormsModule]
+      declarations: [RegisterReactiveComponent, CheckboxComponent],
+      imports: [ReactiveFormsModule, FormsModule]
     })
       .compileComponents();
   }));
